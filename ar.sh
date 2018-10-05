@@ -32,11 +32,11 @@ export AR_RESTARTS_LOG=${AR_RESTARTS_LOG:-ar-restarts.log}
 ## log files when executing external tasks
 export AR_EXEC_LOG=${AR_EXEC_LOG:-ar-exec-out.log}
 export AR_EXEC_ERR=${AR_EXEC_ERR:-ar-exec-err.log}
-## consequtive fails to cause a restart
+## consecutive fails to cause a restart
 export AR_FAILS_BEFORE_RESTART=${AR_FAILS_BEFORE_RESTART:-3}
-## max separation in seconds between fails to still count them as consequtive
+## max separation in seconds between fails to still count them as consecutive
 export AR_FAILS_MAX_SEP=${AR_FAILS_MAX_SEP:-60}
-## min separation in seconds between consequtive restarts
+## min separation in seconds between consecutive restarts
 export AR_RESTARTS_MIN_SEP=${AR_RESTARTS_MIN_SEP:-600}
 ## action functions
 export AR_TEST_COMMAND_FILE=${AR_TEST_COMMAND_FILE:-test-command}
