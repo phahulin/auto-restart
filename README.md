@@ -14,7 +14,8 @@ touch notify-command
     * `test-command` failed at least `AR_FAILS_BEFORE_RESTART` times
     * failures happen sufficiently often (of the latest `AR_FAILS_BEFORE_RESTART` failures, the earliest one and the last one are separated by less than `AR_FAILS_MAX_SEP` seconds)
     * latest restart didn't happen too recently (at least `AR_RESTARTS_MIN_SEP` seconds should pass between restarts)
-4. when a restart happens, `notify-command` is also executed
+    * `AR_RESTART=1` (it is by default)
+4. when all above conditions are met and a restart is triggered, `notify-command` is also executed (unless `AR_NOTIFY=0`)
 5. timestamps of failures and restarts are written to `AR_FAILS_LOG` and `AR_RESTARTS_LOG`, these files should be preserved for correct work of the script
 6. environment variables can be read from `ar.conf` file if it exists. Full list of env variables and their default values is:
 ```bash
