@@ -1,0 +1,16 @@
+.ar-last-fails.tmp
+
+ar.conf
+
+ar-exec-err.log
+ar-exec-out.log
+ar-fails.log
+ar.log
+ar-restarts.log
+
+out.log
+err.log
+
+notify-command
+restart-command
+test-command
