@@ -11,9 +11,9 @@ touch notify-command
 ```
 2. when script is started, content of `test-command` file is executed. If it returns non-zero exit code, then under certain conditions, content of `restart-command` file will be executed.
 3. restart only happens if 
-    a. `test-command` failed at least `AR_FAILS_BEFORE_RESTART` times
-    b. failures happen sufficiently often (of the latest `AR_FAILS_BEFORE_RESTART` failures, the earliest one and the last one are separated by less than `AR_FAILS_MAX_SEP` seconds)
-    c. latest restart didn't happen too recently (at least `AR_RESTARTS_MIN_SEP` seconds should pass between restarts)
+    * `test-command` failed at least `AR_FAILS_BEFORE_RESTART` times
+    * failures happen sufficiently often (of the latest `AR_FAILS_BEFORE_RESTART` failures, the earliest one and the last one are separated by less than `AR_FAILS_MAX_SEP` seconds)
+    * latest restart didn't happen too recently (at least `AR_RESTARTS_MIN_SEP` seconds should pass between restarts)
 4. when a restart happens, `notify-command` is also executed
 5. timestamps of failures and restarts are written to `AR_FAILS_LOG` and `AR_RESTARTS_LOG`, these files should be preserved for correct work of the script
 6. environment variables can be read from `ar.conf` file if it exists. Full list of env variables and their default values is:
