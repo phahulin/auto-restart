@@ -13,14 +13,15 @@
 set -e
 set -u
 
+
 # read environment from ar.conf file if it exists
 AR_CONF="ar.conf"
-set -a
 if [ -f $AR_CONF ]; then
 	echo "Reading environment from $AR_CONF"
+	set -a
 	source "$AR_CONF"
+	set +a
 fi
-set +a
 
 # apply defaults
 export AR_DEBUG=${AR_DEBUG:-0}
@@ -46,6 +47,7 @@ export AR_NOTIFY_COMMAND_FILE=${AR_NOTIFY_COMMAND_FILE:-notify-command}
 export AR_RESTART=${AR_RESTART:-1}
 export AR_NOTIFY=${AR_NOTIFY:-1}
 
+
 log() {
 	echo "$(date -u +%Y-%m-%d"T"%H:%M:%S)" "$AR_SERVICE" "$@" >> $AR_LOG
 }
@@ -68,6 +70,7 @@ enabled_str() {
 	fi
 }
 
+
 check_file() {
 	dbg "Checking file for $2: $1"
 	if [ ! -f "$1" ]; then
@@ -88,6 +91,7 @@ execute_file() {
 	bash "$1" >> $AR_EXEC_LOG 2>>$AR_EXEC_ERR
 	echo $?
 }
+
 
 notify() {
 	if [ "$AR_NOTIFY" -ne "0" ]; then
@@ -140,6 +144,7 @@ failed() {
 		fi
 	fi
 }
+
 
 main() {
 	log "Starting, restarts: $(enabled_str "$AR_RESTART"), notifications: $(enabled_str "$AR_NOTIFY")"
