@@ -103,7 +103,7 @@ notify() {
 }
 
 do_restart() {
-	echo "$AR_SERVICE" "$(date -u +%s)" >>$AR_RESTARTS_LOG
+	echo "$AR_SERVICE" "$(date -u +%s)" "$(date -u +%Y-%m-%d"T"%H:%M:%S)" >>$AR_RESTARTS_LOG
 	notify
 	if [ "$AR_RESTART" -ne "0" ]; then
 		execute_file "$AR_RESTART_COMMAND_FILE" "restart command" > /dev/null
@@ -113,7 +113,7 @@ do_restart() {
 }
 
 failed() {
-	echo "$AR_SERVICE" "$(date -u +%s)" >>$AR_FAILS_LOG
+	echo "$AR_SERVICE" "$(date -u +%s)" "$(date -u +%Y-%m-%d"T"%H:%M:%S)" >>$AR_FAILS_LOG
 	grep "^$AR_SERVICE " "$AR_FAILS_LOG" | tail -n "$AR_FAILS_BEFORE_RESTART" > .ar-last-fails.tmp
 	if [ "$(wc -l < .ar-last-fails.tmp)" -lt "$AR_FAILS_BEFORE_RESTART" ]; then
 		dbg "Too few fails to trigger a restart (< $AR_FAILS_BEFORE_RESTART)"
