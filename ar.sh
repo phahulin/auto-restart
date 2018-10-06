@@ -26,6 +26,7 @@ fi
 # apply defaults
 export AR_DEBUG=${AR_DEBUG:-0}
 export AR_SERVICE=${AR_SERVICE:-$(hostname)}
+export AR_USE_LOCK=${AR_USE_LOCK:-1}
 ## log files for ar
 export AR_LOG=${AR_LOG:-logs/ar.log}
 export AR_FAILS_LOG=${AR_FAILS_LOG:-ar-fails}
@@ -90,6 +91,16 @@ execute_file() {
 	dbg "Executing $2 from: $1"
 	bash "$1" >> $AR_EXEC_LOG 2>>$AR_EXEC_ERR
 	echo $?
+	log "Executing $2 completed"
+}
+
+check_lock() {
+	if [ -f .ar.lock ]; then
+		log "Lock file already exists, skipping"
+		exit 4
+	else
+		touch .ar.lock
+	fi
 }
 
 
@@ -147,8 +158,7 @@ failed() {
 
 
 main() {
-	log "Starting, restarts: $(enabled_str "$AR_RESTART"), notifications: $(enabled_str "$AR_NOTIFY")"
-
+	log "Starting, restarts: $(enabled_str "$AR_RESTART"), notifications: $(enabled_str "$AR_NOTIFY"), use lock: $(enabled_str "$AR_USE_LOCK")"
 	check_file "$AR_TEST_COMMAND_FILE" "test_command"
 	if [ "$AR_RESTART" -ne "0" ]; then
 		check_file "$AR_RESTART_COMMAND_FILE" "restart command"
@@ -157,14 +167,23 @@ main() {
 		check_file "$AR_NOTIFY_COMMAND_FILE" "notify command"
 	fi
 
+	if [ "$AR_USE_LOCK" -ne "0" ]; then
+		check_lock
+	fi
+
 	local result="$(execute_file $AR_TEST_COMMAND_FILE "test command")"
+	local fresult="0"
 	dbg "Test command completed, result: $result"
 	if [ "$result" -ne "0" ]; then
 		log "Test command failed"
-		failed
+		fresult=$(failed)
 	else
 		log "Test command passed"
 	fi
+	if [ "$AR_USE_LOCK" -ne "0" ]; then
+		rm -f .ar.lock
+	fi
+	exit $fresult
 }
 
 main

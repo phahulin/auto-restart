@@ -21,6 +21,7 @@ touch notify-command
 ```bash
 export AR_DEBUG=0                               # additional logging (0/1)
 export AR_SERVICE=$(hostname)                   # name of the service
+export AR_USE_LOCK=1                            # use lock file (0/1)
 export AR_LOG=logs/ar.log                       # main log file
 export AR_FAILS_LOG=ar-fails                    # log file to store failures
 export AR_RESTARTS_LOG=ar-restarts              # log file to store restarts
@@ -35,9 +36,11 @@ export AR_NOTIFY_COMMAND_FILE=notify-command    # name of the file with notifica
 export AR_RESTART=1                             # switch to quickly enable/disable restarts
 export AR_NOTIFY=1                              # switch to quickly enable/disable notifications
 ```
-7. exit code of this script is
+7. if `AR_USE_LOCK=1` script will create `.ar.lock` file on startup that will prevent multiple instances of the script to be runnnig at the same time
+8. exit code of this script is
     * `0` if test passed
     * `1` if test failed, but restart wasn't triggered
     * `2` if restart was or should have been triggered (depending on value of `AR_RESTART`)
     * `3` if initial validation failed and one of `*-command` files doesn't exist or is empty
-8. files in `logs/` subfolder can be rotated freely. `ar-fails` and `ar-restarts` files should be preserved, or at least their tailing lines
+    * `4` if lock file exists so script didn't run
+9. files in `logs/` subfolder can be rotated freely. Files `ar-fails` and `ar-restarts`, or at least their tailing lines, should be preserved.
