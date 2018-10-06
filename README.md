@@ -38,6 +38,6 @@ export AR_NOTIFY=1                              # switch to quickly enable/disab
 7. exit code of this script is
     * `0` if test passed
     * `1` if test failed, but restart wasn't triggered
-    * `2` if restart was or should have been triggered (depending on values of `AR_RESTART`)
+    * `2` if restart was or should have been triggered (depending on value of `AR_RESTART`)
     * `3` if initial validation failed and one of `*-command` files doesn't exist or is empty
 8. files in `logs/` subfolder can be rotated freely. `ar-fails` and `ar-restarts` files should be preserved, or at least their tailing lines
