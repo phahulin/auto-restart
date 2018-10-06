@@ -135,11 +135,11 @@ failed() {
 				do_restart
 				echo 2
 			else
-				log "Last restart was too recently, do not restart"
+				log "Last restart was too recently ($restart_sep < $AR_RESTARTS_MIN_SEP), do not restart"
 				echo 1
 			fi
 		else
-			log "Latest fails are too separated (> $AR_FAILS_MAX_SEP seconds), do not restart"
+			log "Latest fails are too separated ($fail_sep > $AR_FAILS_MAX_SEP seconds), do not restart"
 			echo 1
 		fi
 	fi
