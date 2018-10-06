@@ -27,12 +27,12 @@ fi
 export AR_DEBUG=${AR_DEBUG:-0}
 export AR_SERVICE=${AR_SERVICE:-$(hostname)}
 ## log files for ar
-export AR_LOG=${AR_LOG:-ar.log}
-export AR_FAILS_LOG=${AR_FAILS_LOG:-ar-fails.log}
-export AR_RESTARTS_LOG=${AR_RESTARTS_LOG:-ar-restarts.log}
+export AR_LOG=${AR_LOG:-logs/ar.log}
+export AR_FAILS_LOG=${AR_FAILS_LOG:-ar-fails}
+export AR_RESTARTS_LOG=${AR_RESTARTS_LOG:-ar-restarts}
 ## log files when executing external tasks
-export AR_EXEC_LOG=${AR_EXEC_LOG:-ar-exec-out.log}
-export AR_EXEC_ERR=${AR_EXEC_ERR:-ar-exec-err.log}
+export AR_EXEC_LOG=${AR_EXEC_LOG:-logs/ar-exec-out.log}
+export AR_EXEC_ERR=${AR_EXEC_ERR:-logs/ar-exec-err.log}
 ## consecutive fails to cause a restart
 export AR_FAILS_BEFORE_RESTART=${AR_FAILS_BEFORE_RESTART:-3}
 ## max separation in seconds between fails to still count them as consecutive
