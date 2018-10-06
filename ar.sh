@@ -36,7 +36,7 @@ export AR_EXEC_ERR=${AR_EXEC_ERR:-logs/ar-exec-err.log}
 ## consecutive fails to cause a restart
 export AR_FAILS_BEFORE_RESTART=${AR_FAILS_BEFORE_RESTART:-3}
 ## max separation in seconds between fails to still count them as consecutive
-export AR_FAILS_MAX_SEP=${AR_FAILS_MAX_SEP:-60}
+export AR_FAILS_MAX_SEP=${AR_FAILS_MAX_SEP:-300}
 ## min separation in seconds between consecutive restarts
 export AR_RESTARTS_MIN_SEP=${AR_RESTARTS_MIN_SEP:-600}
 ## action functions
