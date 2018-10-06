@@ -21,13 +21,13 @@ touch notify-command
 ```bash
 export AR_DEBUG=0                               # additional logging (0/1)
 export AR_SERVICE=$(hostname)                   # name of the service
-export AR_LOG=ar.log                            # main log file
-export AR_FAILS_LOG=ar-fails.log                # log file to store failures
-export AR_RESTARTS_LOG=ar-restarts.log          # log file to store restarts
-export AR_EXEC_LOG=ar-exec-out.log              # stdout for *-command. Use /dev/null to ignore output
-export AR_EXEC_ERR=ar-exec-err.log              # stderr for *-command. Use /dev/null to ignore output
+export AR_LOG=logs/ar.log                            # main log file
+export AR_FAILS_LOG=ar-fails                # log file to store failures
+export AR_RESTARTS_LOG=ar-restarts          # log file to store restarts
+export AR_EXEC_LOG=logs/ar-exec-out.log              # stdout for *-command. Use /dev/null to ignore output
+export AR_EXEC_ERR=logs/ar-exec-err.log              # stderr for *-command. Use /dev/null to ignore output
 export AR_FAILS_BEFORE_RESTART=3                # min N of failures to trigger restart
-export AR_FAILS_MAX_SEP=60                      # max separation of failures in seconds so that they count as consecutive
+export AR_FAILS_MAX_SEP=300                      # max separation of failures in seconds so that they count as consecutive
 export AR_RESTARTS_MIN_SEP=600                  # min number of seconds between two restarts
 export AR_TEST_COMMAND_FILE=test-command        # name of the file with test commands
 export AR_RESTART_COMMAND_FILE=restart-command  # name of the file with restart command
@@ -39,4 +39,5 @@ export AR_NOTIFY=1                              # switch to quickly enable/disab
     * `0` if test passed
     * `1` if test failed, but restart wasn't triggered
     * `2` if restart was or should have been triggered (depending on values of `AR_RESTART`)
-    * `3` if initial validation failed and one of `*-command` files doesn't exist or is empty 
+    * `3` if initial validation failed and one of `*-command` files doesn't exist or is empty
+8. files in `logs/` subfolder can be rotated freely. `ar-fails` and `ar-restarts` files should be preserved, or at least their tailing lines
